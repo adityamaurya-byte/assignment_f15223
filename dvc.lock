@@ -1,0 +1,81 @@
+schema: '2.0'
+stages:
+  generate:
+    cmd: python src/generate_data.py params.yaml
+    deps:
+    - path: params.yaml
+      hash: md5
+      md5: cb8e9991b03bfa2a7d6bb6e6ff60df9a
+      size: 439
+    - path: src/generate_data.py
+      hash: md5
+      md5: 7f51ec95632cfca16b45b04c8769a602
+      size: 1610
+    outs:
+    - path: data/raw/churn_raw.csv
+      hash: md5
+      md5: 9989831e2293492410fa18cf1f4c6c18
+      size: 246333
+  preprocess:
+    cmd: python src/preprocess.py params.yaml
+    deps:
+    - path: data/raw/churn_raw.csv
+      hash: md5
+      md5: 9989831e2293492410fa18cf1f4c6c18
+      size: 246333
+    - path: params.yaml
+      hash: md5
+      md5: cb8e9991b03bfa2a7d6bb6e6ff60df9a
+      size: 439
+    - path: src/preprocess.py
+      hash: md5
+      md5: 4e59e94175323e1d7df202db242c3d5b
+      size: 1220
+    outs:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: f7aab42486f0ebb9a07f1d9118d8a266
+      size: 49073
+    - path: data/processed/train.csv
+      hash: md5
+      md5: e9d4ce3bf12e45bd857e204c812c1929
+      size: 195896
+  train:
+    cmd: python src/train.py params.yaml
+    deps:
+    - path: data/processed/train.csv
+      hash: md5
+      md5: e9d4ce3bf12e45bd857e204c812c1929
+      size: 195896
+    - path: params.yaml
+      hash: md5
+      md5: cb8e9991b03bfa2a7d6bb6e6ff60df9a
+      size: 439
+    - path: src/train.py
+      hash: md5
+      md5: 675e6c4cff2829d32e109c10db6f459f
+      size: 1816
+    outs:
+    - path: models/model.joblib
+      hash: md5
+      md5: bb8a984277c2a6c89c31d33b3b64adcf
+      size: 520377
+  evaluate:
+    cmd: python src/evaluate.py params.yaml
+    deps:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: f7aab42486f0ebb9a07f1d9118d8a266
+      size: 49073
+    - path: models/model.joblib
+      hash: md5
+      md5: bb8a984277c2a6c89c31d33b3b64adcf
+      size: 520377
+    - path: params.yaml
+      hash: md5
+      md5: cb8e9991b03bfa2a7d6bb6e6ff60df9a
+      size: 439
+    - path: src/evaluate.py
+      hash: md5
+      md5: f545f1ceceb6fc403e1f6c32d9d84424
+      size: 1413

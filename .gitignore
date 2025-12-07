@@ -1,0 +1,11 @@
+*.pyc
+__pycache__/
+data/
+models/
+metrics/
+dvc_remote/
+.dvc/
+mlruns/
+venv/
+.venv/
+venv

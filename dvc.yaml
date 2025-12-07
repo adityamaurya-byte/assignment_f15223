@@ -1,0 +1,35 @@
+stages:
+  generate:
+    cmd: python src/generate_data.py params.yaml
+    deps:
+      - src/generate_data.py
+      - params.yaml
+    outs:
+      - data/raw/churn_raw.csv
+
+  preprocess:
+    cmd: python src/preprocess.py params.yaml
+    deps:
+      - src/preprocess.py
+      - params.yaml
+      - data/raw/churn_raw.csv
+    outs:
+      - data/processed/train.csv
+      - data/processed/test.csv
+
+  train:
+    cmd: python src/train.py params.yaml
+    deps:
+      - src/train.py
+      - params.yaml
+      - data/processed/train.csv
+    outs:
+      - models/model.joblib
+
+  evaluate:
+    cmd: python src/evaluate.py params.yaml
+    deps:
+      - src/evaluate.py
+      - params.yaml
+      - models/model.joblib
+      - data/processed/test.csv

@@ -1,0 +1,21 @@
+generate:
+  n_samples: 5000
+  churn_rate: 0.3
+  output_path: data/raw/churn_raw.csv
+
+preprocess:
+  test_size: 0.2
+  random_state: 42
+  output_train: data/processed/train.csv
+  output_test: data/processed/test.csv
+
+train:
+  model_type: random_forest
+  model_output: models/model.joblib
+  random_state: 42
+  metrics_output: metrics/train_metrics.json
+  n_estimators: 100
+  max_depth: 5
+
+evaluate:
+  metrics_output: metrics/test_metrics.json
