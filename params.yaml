@@ -14,8 +14,8 @@ train:
   model_output: models/model.joblib
   random_state: 42
   metrics_output: metrics/train_metrics.json
-  n_estimators: 300
-  max_depth: 5
+  n_estimators: 100
+  max_depth: 3
 
 evaluate:
   metrics_output: metrics/test_metrics.json
